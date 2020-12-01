@@ -27,7 +27,7 @@ def make_annot_files(args, bed_for_annot):
     df_int = pd.DataFrame({'BP': bp, 'ANNOT':1})
     df_annot = pd.merge(df_bim, df_int, how='left', on='BP')
     df_annot.fillna(0, inplace=True)
-    df_annot = df_annot[['ANNOT']].astype(int)
+    df_annot = df_annot.astype({"ANNOT":int})
     if args.annot_file.endswith('.gz'):
         with gzip.open(args.annot_file, 'wb') as f:
             df_annot.to_csv(f, sep = "\t", index = False)
